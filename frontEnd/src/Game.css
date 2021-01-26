@@ -12,7 +12,15 @@ th, td
 #a1Start,#a2Start,#a3Start,#a4Start,#a1Finish,#a2Finish,#a3Finish,#a4Finish
 {
 	background-color: yellow;
-	color: red;
+	color: black;
+}
+
+#a1Start,#a2Start,#a3Start,#a4Start
+{
+	
+	background-image: url("gelbFigur.png");
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 .aStartPoint
@@ -25,7 +33,15 @@ th, td
 #b1Start,#b2Start,#b3Start,#b4Start,#b1Finish,#b2Finish,#b3Finish,#b4Finish
 {
 	background-color: green;
-	color: red;
+	color: black;
+}
+
+#b1Start,#b2Start,#b3Start,#b4Start
+{
+	
+	background-image: url("gruenFigur.png");
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 .bStartPoint
@@ -37,7 +53,14 @@ th, td
 #c1Start,#c2Start,#c3Start,#c4Start,#c1Finish,#c2Finish,#c3Finish,#c4Finish
 {
 	background-color: blue;
-	color: red;
+	color: black;
+}
+
+#c1Start,#c2Start,#c3Start,#c4Start
+{	
+	background-image: url("blauFigur.png");
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 .cStartPoint
@@ -48,13 +71,20 @@ th, td
 
 #d1Start,#d2Start,#d3Start,#d4Start,#d1Finish,#d2Finish,#d3Finish,#d4Finish
 {
-	background-color: orange;
-	color: red;
+	background-color: red;
+	color: black;
+}
+
+#d1Start,#d2Start,#d3Start,#d4Start
+{	
+	background-image: url("rotFigur.png");
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 .dStartPoint
 {
-	border: 10px solid orange;
+	border: 10px solid red;
 	color: red;
 }
 
@@ -62,6 +92,6 @@ th, td
 #feld11,#feld12,#feld13,#feld14,#feld15,#feld16,#feld17,#feld18,#feld19,#feld20,
 #feld21,#feld22,#feld23,#feld24,#feld25,#feld26,#feld27,#feld28,#feld29,#feld30,
 #feld31,#feld32,#feld33,#feld34,#feld35,#feld36,#feld37,#feld38,#feld39,#feld40
-{
+{	
 	background-color: grey;
 }

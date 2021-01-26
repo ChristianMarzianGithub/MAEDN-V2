@@ -45,7 +45,7 @@ export default class Game extends Component {
 			  <td></td>
 			  <td></td>
 			  <td></td>
-			</tr>
+			</tr> 
 			<tr>
 			  <td></td>
 			  <td></td>
