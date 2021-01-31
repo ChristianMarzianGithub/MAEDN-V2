@@ -4,9 +4,82 @@ import './Game.css'
 export default class Game extends Component {
   displayName = Game.name
 
+	constructor(props) 
+	{
+		super(props);
+		this.getData = this.getData.bind(this);  
+		this.refresh = this.refresh.bind(this);
+		this.resetFields = this.resetFields.bind(this);
+		
+		this.pos= 1;
+		
+		this.getData();
+	}
+
+	
+	refresh()
+	{
+		this.getData();
+		this.resetFields();
+		var millisecondsToWait = 2000;
+		setTimeout(function() {
+			// Whatever you want to do after the wait
+		}, millisecondsToWait);
+		
+		
+		document.getElementById('feld' + this.pos).innerHTML = "asdf";
+			
+	}
+	
+	resetFields()
+	{
+		var i = 1;
+		
+		for (i = 1; i < 40; i++) {
+			
+				document.getElementById('feld' + i).innerHTML = i;
+			
+		  
+		}
+	}
+	
+
+	getData()
+	{
+		
+		
+		fetch('http://localhost:8080/getStatus')
+      .then(response => response.json())
+      .then(data => {
+		  
+		  this.pos = data.playerListe[0].figurenListe[1].position;
+	  
+      });
+	  
+	  
+	  console.log('This is your data', this.state);
+	  
+		 
+	}
+		/*
+		const apiUrl = 'http://localhost:8080/getStatus';
+    fetch(apiUrl)
+      .then((response) => response.json())
+      .then((data) => console.log('This is your data', data));
+	  
+	  
+	  var abc = 2;
+	  */
+	  //document.getElementById('a' + abc + 'Start').innerHTML = "O";
+
+ 
   render() {
     return (
-		<table >
+	<div id='wholeBody'>
+		<div id='refreshButton'>
+		<button onClick={this.refresh}>refreshButton</button>
+		</div>
+		<table>
 			<tr>
 			  <td id='a1Start'>a1</td>
 			  <td id='a2Start'>a2</td>
@@ -73,7 +146,7 @@ export default class Game extends Component {
 			  <td id='feld19'>19</td>
 			</tr>
 			<tr>
-			  <td id='feld40'>40</td>
+			  <td id='feld39'>39</td>
 			  <td id='a1Finish'>A1</td>
 			  <td id='a2Finish'>A2</td>
 			  <td id='a3Finish'>A3</td>
@@ -83,20 +156,20 @@ export default class Game extends Component {
 			  <td id='c2Finish'>C2</td>
 			  <td id='c3Finish'>C3</td>
 			  <td id='c4Finish'>C4</td>
-			  <td id='feld21'>21</td>
+			  <td id='feld20'>20</td>
 			</tr>
 			<tr>
-			  <td id='feld39'>39</td>
+			  <td id='feld38'>38</td>
 			  <td id='feld38'>38</td>
 			  <td id='feld37'>37</td>
 			  <td id='feld36'>36</td>
 			  <td id='feld35'>35</td>
 			  <td id='d1Finish'>D1</td>
-			  <td id='feld26'>26</td>
 			  <td id='feld25'>25</td>
 			  <td id='feld24'>24</td>
 			  <td id='feld23'>23</td>
-			  <td class='cStartPoint' id='feld22'>22</td>
+			  <td id='feld22'>22</td>
+			  <td class='cStartPoint' id='feld21'>21</td>
 			</tr>
 			<tr>
 			  <td></td>
@@ -105,7 +178,7 @@ export default class Game extends Component {
 			  <td></td>
 			  <td id='feld34'>34</td>
 			  <td id='d2Finish'>D2</td>
-			  <td id='feld27'>27</td>
+			  <td id='feld26'>26</td>
 			  <td></td>
 			  <td></td>
 			  <td></td>
@@ -118,7 +191,7 @@ export default class Game extends Component {
 			  <td></td>			  
 			  <td id='feld33'>33</td>			  
 			  <td id='d3Finish'>D3</td>
-			  <td id='feld28'>28</td>
+			  <td id='feld27'>27</td>
 			  <td></td>
 			  <td></td>
 			  <td></td>
@@ -131,14 +204,14 @@ export default class Game extends Component {
 			  <td></td>
 			  <td id='feld32'>32</td>
 			  <td id='d4Finish'>D4</td>
-			  <td id='feld29'>29</td>
+			  <td id='feld28'>28</td>
 			  <td></td>
 			  <td></td>
 			  <td id='c1Start'>c1</td>
 			  <td id='c2Start'>c2</td>
 			</tr>
 			<tr>
-			  <td id='d3Start'>d3</td>
+			  <td id='d3Start' >d3</td>
 			  <td id='d4Start'>d4</td>
 			  <td></td>
 			  <td></td>
@@ -151,6 +224,8 @@ export default class Game extends Component {
 			  <td id='c4Start'>c3</td>
 			</tr>
 		</table>
+		
+		</div>
     );
   }
 }
