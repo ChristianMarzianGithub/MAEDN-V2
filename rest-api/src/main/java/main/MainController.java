@@ -1,5 +1,6 @@
 package main;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,10 +13,25 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 public class MainController {
 	Game game = new Game();
 		
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	@GetMapping("/getWuerfeln")
-	public int getWuerfeln(@RequestParam int anzahlPositionen) 
+	public String getWuerfeln() 
 	{
-		return game.wuerfeln();
+		String json = "";
+		
+		ObjectMapper mapper = new ObjectMapper();
+		 
+        try {
+       	 mapper.enable(SerializationFeature.INDENT_OUTPUT);
+         json = mapper.writeValueAsString(game.wuerfeln());
+        } 
+        catch (JsonProcessingException e) 
+        {
+            e.printStackTrace();
+        }        
+	        
+	        
+       return json;
 	}
 	
 	@GetMapping("/figurSetzen")
@@ -24,7 +40,7 @@ public class MainController {
 		return game.figurSetzen(gewuerfelteZahl, indexMomentanerSpieler);
 	}
 	
-	
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	@GetMapping("/getStatus")
 	public String getStatus() 
 	{
