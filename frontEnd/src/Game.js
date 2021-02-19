@@ -7,28 +7,42 @@ export default class Game extends Component {
 	constructor(props) 
 	{
 		super(props);
+		this.state={data:[], pos: 1, loading: true ,wuerfelNumber: 1};
+		
+		
+		
 		this.getData = this.getData.bind(this);  
 		this.refresh = this.refresh.bind(this);
 		this.resetFields = this.resetFields.bind(this);
-		
-		this.pos= 1;
+		this.getBoard = this.getBoard.bind(this);
+		this.wuerfeln = this.wuerfeln.bind(this);
+		this.drawFiguresOnBoard = this.drawFiguresOnBoard.bind(this);
+		this.drawStartFields = this.drawStartFields.bind(this);
+		this.drawFieldFields = this.drawFieldFields.bind(this);
 		
 		this.getData();
 	}
 
+	wuerfeln()
+	{
+		
+		fetch('http://localhost:8080/getWuerfeln')
+      .then(response => response.json())
+      .then(data => {
+		  this.setState({wuerfelNumber: data.result});
+      });
+	  
+	  
+	  console.log('This is your data: ', this.state.wuerfelNumber);
+	}
+	
+	
 	
 	refresh()
 	{
 		this.getData();
 		this.resetFields();
-		var millisecondsToWait = 2000;
-		setTimeout(function() {
-			// Whatever you want to do after the wait
-		}, millisecondsToWait);
-		
-		
-		document.getElementById('feld' + this.pos).innerHTML = "asdf";
-			
+		this.drawFiguresOnBoard();
 	}
 	
 	resetFields()
@@ -36,14 +50,94 @@ export default class Game extends Component {
 		var i = 1;
 		
 		for (i = 1; i < 40; i++) {
-			
-				document.getElementById('feld' + i).innerHTML = i;
-			
-		  
+				try
+				{
+					document.getElementById('feld' + i).innerHTML = i;
+				}
+				catch(error)
+				{
+					
+					console.error(error);
+				}
 		}
 	}
 	
-
+	drawFiguresOnBoard()
+	{
+		try
+		{
+			
+			
+			//draw every startField
+			this.drawStartFields();
+			this.drawFieldFields();
+			
+			
+			//draw Board
+			//draw every finishField
+			
+			document.getElementById('feld' + (this.state.pos + 1)).innerHTML = "asdf";
+			
+			
+			
+			
+			
+		} catch(error)
+		{
+			console.error(error);
+		}			
+	}
+	
+	drawStartFields()
+	{
+		//loop through this.state.data.board.startField0			
+			for(var i = 0; i < this.state.data.board.startField0.length; i++)
+			{
+				if(this.state.data.board.startField0[i] != undefined)
+				{
+					document.getElementById('a' + (i+1) + 'Start').innerHTML = this.state.data.board.startField0[i].farbe;
+				}
+			}
+			
+			//loop through this.state.data.board.startField1			
+			for(var i = 0; i < this.state.data.board.startField1.length; i++)
+			{
+				if(this.state.data.board.startField1[i] != undefined)
+				{
+					document.getElementById('b' + (i+1) + 'Start').innerHTML = this.state.data.board.startField1[i].farbe;
+				}
+			}
+			
+			//loop through this.state.data.board.startField1			
+			for(var i = 0; i < this.state.data.board.startField1.length; i++)
+			{
+				if(this.state.data.board.startField2[i] != undefined)
+				{
+					document.getElementById('c' + (i+1) + 'Start').innerHTML = this.state.data.board.startField2[i].farbe;
+				}
+			}
+			
+			//loop through this.state.data.board.startField1			
+			for(var i = 0; i < this.state.data.board.startField1.length; i++)
+			{
+				if(this.state.data.board.startField3[i] != undefined)
+				{
+					document.getElementById('d' + (i+1) + 'Start').innerHTML = this.state.data.board.startField3[i].farbe;
+				}
+			}
+	}
+	
+	drawFieldFields()
+	{
+		for(var i = 0; i < this.state.data.board.boardFields.length; i++)
+			{
+				if(this.state.data.board.boardFields[i] != undefined)
+				{
+					document.getElementById('feld' + (i+1) + '').innerHTML = this.state.data.board.boardFields[i].farbe;
+				}
+			}
+	}
+	
 	getData()
 	{
 		
@@ -51,33 +145,28 @@ export default class Game extends Component {
 		fetch('http://localhost:8080/getStatus')
       .then(response => response.json())
       .then(data => {
-		  
-		  this.pos = data.playerListe[0].figurenListe[1].position;
-	  
+		 
+		
+		  //this.state.pos = data.playerListe[0].figurenListe[1].position;
+		this.setState({data: data, pos: data.playerListe[0].figurenListe[1].position, loading: false });
       });
 	  
 	  
-	  console.log('This is your data', this.state);
+	  console.log('This is your data: ', this.state.data.board);
 	  
 		 
 	}
-		/*
-		const apiUrl = 'http://localhost:8080/getStatus';
-    fetch(apiUrl)
-      .then((response) => response.json())
-      .then((data) => console.log('This is your data', data));
-	  
-	  
-	  var abc = 2;
-	  */
-	  //document.getElementById('a' + abc + 'Start').innerHTML = "O";
-
- 
-  render() {
-    return (
+	
+	getBoard()
+	{
+		return (
 	<div id='wholeBody'>
 		<div id='refreshButton'>
 		<button onClick={this.refresh}>refreshButton</button>
+		<div id='wuefelBox'>
+			<button onClick={this.wuerfeln} id='wuerfelButton'>wuerfelnButton</button>
+			<p id='wuerfelText'>{this.state.wuerfelNumber}</p>
+		</div>
 		</div>
 		<table>
 			<tr>
@@ -227,5 +316,30 @@ export default class Game extends Component {
 		
 		</div>
     );
+	};
+		/*
+		const apiUrl = 'http://localhost:8080/getStatus';
+    fetch(apiUrl)
+      .then((response) => response.json())
+      .then((data) => console.log('This is your data', data));
+	  
+	  
+	  var abc = 2;
+	  */
+	  //document.getElementById('a' + abc + 'Start').innerHTML = "O";
+
+ 
+  render() {
+	let contents = this.state.loading
+      ? <p><em>Loading...</em></p>
+	  : this.getBoard();
+	  
+	  
+	return (	
+		<div id = 'contents'>
+		
+		{contents}
+		</div>
+	);	
   }
 }
