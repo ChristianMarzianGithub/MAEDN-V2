@@ -14,7 +14,7 @@ public class MainApplication {
 		
 		while(true) {
 			
-			zuWuerfelndeZahl = game.wuerfeln();
+			zuWuerfelndeZahl = game.wuerfeln().getResult();
 			indexSpielerDerMomentanDranIst = game.figurSetzen(zuWuerfelndeZahl,indexSpielerDerMomentanDranIst);
 			
 			

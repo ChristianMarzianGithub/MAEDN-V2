@@ -5,6 +5,26 @@ import java.util.ArrayList;
 public class Game {
 
 	private ArrayList<Player> playerListe = new ArrayList<Player>(); 
+	
+	public Phase phase = Phase.Wuerfeln;
+	private Board board;
+	
+	public Game() {
+		playerListe.add(new Player(Farbe.blau,39));
+		playerListe.add(new Player(Farbe.rot,39));
+		playerListe.add(new Player(Farbe.gelb,39));
+		playerListe.add(new Player(Farbe.gruen,39));
+		setBoard(new Board());
+		
+	}
+	
+	public WuerfelResult wuerfeln() {
+		phase = Phase.Setzen;
+		WuerfelResult wr = new WuerfelResult();
+		wr.setResult((int) (Math.random() * 6 + 1));
+		return wr;		
+	}
+
 	public ArrayList<Player> getPlayerListe() {
 		return playerListe;
 	}
@@ -13,21 +33,7 @@ public class Game {
 		this.playerListe = playerListe;
 	}
 
-	public Phase phase = Phase.Wuerfeln;
 	
-	
-	public Game() {
-		playerListe.add(new Player(Farbe.blau,40));
-		playerListe.add(new Player(Farbe.rot,40));
-		playerListe.add(new Player(Farbe.gelb,40));
-		playerListe.add(new Player(Farbe.gruen,40));
-	}
-	
-	public int wuerfeln() {
-		phase = Phase.Setzen;
-		return (int) (Math.random() * 6 + 1);		
-	}
-
 	public int figurSetzen(int zuWuerfelndeZahl, int indexVonSpielerDerMomentanDranIst) {
 		// TODO Auto-generated method stub
 		Figur f = playerListe.get(indexVonSpielerDerMomentanDranIst).getFigurenListe().get(1);
@@ -50,8 +56,7 @@ public class Game {
 
 	public void gibPositionenAllerFigurenAus(int gewuerfelteZahl) 
 	{
-		System.out.println("gewürfelte Zahl: " + gewuerfelteZahl);
-		System.out.println();
+		System.out.println("gewürfelte Zahl: " + gewuerfelteZahl + " \n");
 		for(Player player: playerListe) 
 		{
 			System.out.println("Player: " + playerListe.indexOf(player));
@@ -65,6 +70,14 @@ public class Game {
 		}
 		
 		
+	}
+
+	public Board getBoard() {
+		return board;
+	}
+
+	public void setBoard(Board board) {
+		this.board = board;
 	}
 	
 	/*
