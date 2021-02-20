@@ -34,10 +34,11 @@ public class MainController {
        return json;
 	}
 	
+	@CrossOrigin(origins = "*", allowedHeaders = "*")	
 	@GetMapping("/figurSetzen")
-	public int figurSetzen(@RequestParam int gewuerfelteZahl, @RequestParam int indexMomentanerSpieler) 
+	public int figurSetzen(@RequestParam int gewuerfelteZahl, @RequestParam int indexMomentanerSpieler, @RequestParam String position) 
 	{
-		return game.figurSetzen(gewuerfelteZahl, indexMomentanerSpieler);
+		return game.figurSetzen(gewuerfelteZahl, indexMomentanerSpieler,position);
 	}
 	
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
