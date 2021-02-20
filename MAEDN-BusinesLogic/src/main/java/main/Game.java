@@ -34,24 +34,37 @@ public class Game {
 	}
 
 	
-	public int figurSetzen(int zuWuerfelndeZahl, int indexVonSpielerDerMomentanDranIst) {
+	public int figurSetzen(int zuWuerfelndeZahl, int indexVonSpielerDerMomentanDranIst, String position) {
 		// TODO Auto-generated method stub
 		Figur f = playerListe.get(indexVonSpielerDerMomentanDranIst).getFigurenListe().get(1);
 		f.setPosition(f.getPosition() + zuWuerfelndeZahl);
-		return getNaechstenSpieler(indexVonSpielerDerMomentanDranIst);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		return getNaechstenSpieler(indexVonSpielerDerMomentanDranIst, zuWuerfelndeZahl);
 	}
 
-	private int getNaechstenSpieler(int indexVonSpielerDerMomentanDranIst) 
+	private int getNaechstenSpieler(int indexVonSpielerDerMomentanDranIst, int zuWuerfelndeZahl) 
 	{
-		// TODO Auto-generated method stub
+		int naechsterSpieler = indexVonSpielerDerMomentanDranIst;
 		
-		if(indexVonSpielerDerMomentanDranIst == 3)
-		{
-			return 0;
-		}else
-		{
-			return indexVonSpielerDerMomentanDranIst + 1;
+		if(zuWuerfelndeZahl != 6) {//bei einer 6 darf man nochmal wuerfeln
+			if(indexVonSpielerDerMomentanDranIst == 3)
+			{
+				naechsterSpieler =  0;
+			}else
+			{
+				naechsterSpieler =  indexVonSpielerDerMomentanDranIst + 1;
+			}
 		}
+				
+		return naechsterSpieler;
 	}
 
 	public void gibPositionenAllerFigurenAus(int gewuerfelteZahl) 
